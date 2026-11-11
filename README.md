@@ -2,6 +2,8 @@
 
 A full-stack application that calculates current PSX portfolio holdings from a CSV trade history. It reports the quantity held, weighted average cost, current value, and unrealised profit or loss for each open position.
 
+**Live application:** https://psx-portfolio-analyzer.vercel.app
+
 ## Overview
 
 The browser sends `trades.csv` to the Node.js API. The API validates every row, processes trades in date order, applies 0.15% brokerage, and values open positions using the server-owned `current_prices.csv` file. Uploaded files are processed in memory and are not persisted.
