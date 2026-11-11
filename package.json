@@ -18,7 +18,7 @@
     "build": "npm run build --workspace client && npm run build --workspace server",
     "build:vercel": "npm run build:vercel --workspace client && npm run build --workspace server",
     "lint": "eslint . --max-warnings 0",
-    "typecheck": "npm run typecheck --workspace client && npm run typecheck --workspace server",
+    "typecheck": "npm run typecheck --workspace client && npm run typecheck --workspace server && tsc -p api/tsconfig.json --pretty false",
     "test": "npm run test --workspace server",
     "test:coverage": "npm run test:coverage --workspace server",
     "format": "prettier --write .",
