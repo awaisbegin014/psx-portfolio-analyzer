@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: psx-portfolio-analyzer
+    runtime: node
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 24
+      - key: MAX_UPLOAD_SIZE_BYTES
+        value: 1048576
+      - key: MAX_TRADE_ROWS
+        value: 10000

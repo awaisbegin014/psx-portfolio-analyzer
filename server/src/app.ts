@@ -1,3 +1,6 @@
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
 import express from 'express';
 import helmet from 'helmet';
 
@@ -8,6 +11,8 @@ import { loadCurrentPrices } from './services/price-loader.js';
 export interface AppDependencies {
   loadPrices: () => Promise<ReadonlyMap<string, number>>;
 }
+
+const clientDistDirectory = fileURLToPath(new URL('../../client/dist', import.meta.url));
 
 export function createApp(
   dependencies: AppDependencies = { loadPrices: loadCurrentPrices },
@@ -32,6 +37,19 @@ export function createApp(
       },
     });
   });
+
+  if (existsSync(clientDistDirectory)) {
+    application.use(
+      express.static(clientDistDirectory, {
+        etag: true,
+        maxAge: '1h',
+      }),
+    );
+
+    application.get(/.*/, (_request, response) => {
+      response.sendFile('index.html', { root: clientDistDirectory });
+    });
+  }
 
   application.use(errorHandler);
 
