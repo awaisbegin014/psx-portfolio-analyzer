@@ -158,4 +158,9 @@ The test suite covers brokerage, weighted-average purchases, partial and complet
 
 ## Deployment
 
-`render.yaml` defines a single Render web service. The build compiles the React client and Express server; Express serves the static client and `/api` routes from one origin. Render can deploy the repository as a Blueprint with `/api/health` configured as its health check.
+Two deployment targets are included:
+
+- **Vercel:** `vercel.json` runs the Vercel-specific build, emits the React client to `public/`, and deploys the root `app.ts` Express entry as a Vercel Function.
+- **Render:** `render.yaml` defines a single web service where Express serves both the compiled React client and `/api` routes. `/api/health` is configured as the health check.
+
+Both options keep the frontend and API on one origin, so no production CORS configuration is required.
